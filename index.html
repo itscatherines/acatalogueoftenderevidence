@@ -125,6 +125,7 @@
 
   .video-bg { background: var(--off); }
   .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+  .video-grid--single { grid-template-columns: 1fr; max-width: 760px; }
   .video-item h4 {
     font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--muted); margin-bottom: 0.6rem;
@@ -302,32 +303,11 @@
 <div id="works" class="video-bg"><div class="wrap"><div class="block">
   <p class="eyebrow">Works</p>
   <h2>Documentation</h2>
-  <p>Embed video documentation of the installation and conservation processes below.</p>
-  <div class="video-grid">
+  <p>Video documentation of selected conservation processes and student work by the Institute of Conservation.</p>
+  <div class="video-grid video-grid--single">
     <div class="video-item">
-      <h4>Video I</h4>
-      <div class="v-input">
-        <input type="text" id="url1" placeholder="Paste YouTube or Vimeo URL…">
-        <button onclick="embedVideo(1)">Embed</button>
-      </div>
-      <div class="v-embed" id="embed1">
-        <div class="v-placeholder">
-          <div class="v-icon"><svg width="12" height="14" viewBox="0 0 12 14"><polygon points="0,0 12,7 0,14"/></svg></div>
-          <p>Paste URL above to embed</p>
-        </div>
-      </div>
-    </div>
-    <div class="video-item">
-      <h4>Video II</h4>
-      <div class="v-input">
-        <input type="text" id="url2" placeholder="Paste YouTube or Vimeo URL…">
-        <button onclick="embedVideo(2)">Embed</button>
-      </div>
-      <div class="v-embed" id="embed2">
-        <div class="v-placeholder">
-          <div class="v-icon"><svg width="12" height="14" viewBox="0 0 12 14"><polygon points="0,0 12,7 0,14"/></svg></div>
-          <p>Paste URL above to embed</p>
-        </div>
+      <div class="v-embed">
+        <iframe src="https://www.youtube-nocookie.com/embed/9r4djFGvlv4?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -431,30 +411,5 @@
   </div>
 </footer>
 
-<script>
-function getEmbedUrl(url) {
-  url = url.trim();
-  let yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1] + '?rel=0&modestbranding=1';
-  let vi = url.match(/vimeo\.com\/(\d+)/);
-  if (vi) return 'https://player.vimeo.com/video/' + vi[1] + '?color=00ff0c&byline=0&portrait=0';
-  return null;
-}
-function embedVideo(n) {
-  const input = document.getElementById('url' + n);
-  const container = document.getElementById('embed' + n);
-  const embedUrl = getEmbedUrl(input.value);
-  if (!embedUrl) { input.style.outline = '2px solid red'; setTimeout(() => input.style.outline = '', 1500); return; }
-  const iframe = document.createElement('iframe');
-  iframe.src = embedUrl;
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
-  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
-  container.innerHTML = '';
-  container.appendChild(iframe);
-}
-document.getElementById('url1').addEventListener('keydown', e => { if (e.key === 'Enter') embedVideo(1); });
-document.getElementById('url2').addEventListener('keydown', e => { if (e.key === 'Enter') embedVideo(2); });
-</script>
 </body>
 </html>
